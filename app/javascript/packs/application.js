@@ -13,4 +13,11 @@ Rails.start()
 Turbolinks.start()
 ActiveStorage.start()
 
-import "google_maps"
+// import "google_maps"
+
+import "controllers"
+
+window.mapInitialization = function () {
+  const evt = new Event("mapsLoaded")
+  document.dispatchEvent(evt)
+}

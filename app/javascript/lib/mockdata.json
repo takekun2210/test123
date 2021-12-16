@@ -1,0 +1,23 @@
+[
+  {
+    "position": {"lat": 25.04, "lng": 121.512},
+    "map": "map",
+    "title":"總統府"
+  },
+  {
+    "position": {"lat": 25.035, "lng": 121.519},
+    "map": "map",
+    "title":"中正紀念堂"
+  },
+  {
+    "position": {"lat": 25.0412401, "lng": 121.5226487 },
+    "map": "map",
+    "title":"國父紀念堂"
+  },
+  {
+    "position": {"lat": 25.0430751, "lng": 121.5412284},
+    "map": "map",
+    "title":"忠孝敦化站"
+  }
+
+]
