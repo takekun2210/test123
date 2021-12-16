@@ -8,6 +8,7 @@
 // </div>
 
 import { Controller } from "stimulus"
+// 假的資料去測試，之後會直接寫一個打api的檔案然後把吐回來的資料import進來
 import { mockData } from '../lib/fakedata'
 
 export default class extends Controller {
@@ -15,7 +16,6 @@ export default class extends Controller {
 
   connect() {
 
-    
     if (typeof google != "undefined") {
       this.renderMap();
     }
@@ -40,6 +40,30 @@ export default class extends Controller {
         markers[index] = new google.maps.Marker(element);
         markers[index].setMap(map);
       });  
+
+      // const spotsCoordinates = [
+      //   mockData[0].position,
+      //   mockData[1].position,
+      //   mockData[2].position,
+      //   mockData[3].position,
+      // ];
+
+
+      // 加上點到點之間的連線
+      const spotsCoordinates = []
+      mockData.forEach((element) => {
+        spotsCoordinates.push(element.position)
+      })
+
+      const spotsPath = new google.maps.Polyline({
+        path: spotsCoordinates,
+        geodesic: true,
+        strokeColor: "#FF0000",
+        strokeOpacity: 1.0,
+        strokeWeight: 3,
+      });
+    
+      spotsPath.setMap(map);
 
     } else {
 
