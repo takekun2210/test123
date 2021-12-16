@@ -18,6 +18,23 @@ export const mockData = [
 
 ]
 
+export const mockDataInfoWindow = [
+
+  {
+    "content": "'<h2>總統府</h2>'+'<p>哈哈哈</p>'"
+  },
+  {
+    "content": "'<h2>中正紀念堂</h2>'+'<p>哈哈哈</p>'"
+  },
+  {
+    "content": "'<h2>國父紀念堂</h2>'+'<p>哈哈哈</p>'"
+  },
+  {
+    "content": "'<h2>忠孝敦化站</h2>'+'<p>哈哈哈</p>'"
+  },
+
+]
+
 // function fetchSpotData() {
   
 //   var markers = []

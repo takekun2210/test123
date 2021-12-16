@@ -36,18 +36,11 @@ export default class extends Controller {
         mapTypeControl: false
       });
   
-      mockData.forEach(function(element,index){
-        markers[index] = new google.maps.Marker(element);
-        markers[index].setMap(map);
-      });  
-
-      // const spotsCoordinates = [
-      //   mockData[0].position,
-      //   mockData[1].position,
-      //   mockData[2].position,
-      //   mockData[3].position,
-      // ];
-
+      // 展開所有的景點marker
+      // mockData.forEach(function(element,index){
+      //   markers[index] = new google.maps.Marker(element);
+      //   markers[index].setMap(map);
+      // });  
 
       // 加上點到點之間的連線
       const spotsCoordinates = []
@@ -65,8 +58,29 @@ export default class extends Controller {
     
       spotsPath.setMap(map);
 
+      // 把marker做成動畫（IFFE function)
+      (function dropMarker() {
+      
+        for (let i = 0; i < spotsCoordinates.length; i++) {
+          addMarkerWithTimeout(spotsCoordinates[i], i * 250);
+        }
+      })();
+      
+      function addMarkerWithTimeout(position, timeout) {
+        window.setTimeout(() => {
+          markers.push(
+            new google.maps.Marker({
+              position: position,
+              map,
+              animation: google.maps.Animation.DROP,
+            })
+          );
+        }, timeout);
+      }
+
     } else {
 
+      // 乾淨的初始地圖，沒有任何景點
       const map = new google.maps.Map(this.initialmapTarget, {
         center: {"lat": 25.0412401, "lng": 121.5226487 },
         zoom: 16,
@@ -76,14 +90,6 @@ export default class extends Controller {
       });
 
     }
-
-
-
-  // new google.maps.Marker({
-  //   position: { lat: 25.04, lng: 121.512 },
-  //   map,
-  //   title: "台灣總統府",
-  // })
 
   }
 }
