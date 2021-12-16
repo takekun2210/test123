@@ -37,10 +37,10 @@ export default class extends Controller {
       });
   
       // 展開所有的景點marker
-      // mockData.forEach(function(element,index){
-      //   markers[index] = new google.maps.Marker(element);
-      //   markers[index].setMap(map);
-      // });  
+      mockData.forEach(function(element,index){
+        markers[index] = new google.maps.Marker(element);
+        markers[index].setMap(map);
+      });  
 
       // 加上點到點之間的連線
       const spotsCoordinates = []
@@ -77,6 +77,61 @@ export default class extends Controller {
           );
         }, timeout);
       }
+
+      //計算點到點之間的路途（以開車為基準，之後可以換）
+
+      const directionsService = new google.maps.DirectionsService();
+      const directionsRenderer = new google.maps.DirectionsRenderer();
+
+      const firstSpotPosition = mockData[0].title
+      const lastSpotPosition = mockData[mockData.length - 1].title
+      const middleSpotsPosition = []
+      for ( var i = 1; i < mockData.length -1; i++) {
+        middleSpotsPosition.push({
+          location: mockData[i].title,
+          stopover: true
+        })
+      }
+
+      function calculateAndDisplayRoute(directionsService, directionsRenderer) {
+      
+        directionsService
+          .route({
+            origin: firstSpotPosition,
+            destination: lastSpotPosition,
+            waypoints: middleSpotsPosition,
+            optimizeWaypoints: true,
+            travelMode: google.maps.TravelMode.DRIVING,
+          })
+          .then((response) => {
+            console.log(response);
+            directionsRenderer.setDirections(response);
+          })
+          .catch((e) => window.alert("Directions request failed"+ status));
+      }
+
+      calculateAndDisplayRoute(directionsService,directionsRenderer);
+      directionsRenderer.setMap(map);
+
+    //   drawRoute(firstSpotPosition, lastSpotPosition, middleSpotsPosition);
+
+    //   function drawRoute(firstSpotPosition, lastSpotPosition, middleSpotsPosition) {
+    //     var request = {
+    //       origin: firstSpotPosition,
+    //       destination: lastSpotPosition,
+    //       waypoints: middleSpotsPosition,
+    //       optimizeWaypoints: true,
+    //       travelMode: google.maps.TravelMode.DRIVING
+    //   }
+    // }
+
+
+    // directionsService.route(request, function(response, status) {
+    //   if (status == google.maps.DirectionsStatus.OK) {
+    //     directionsRenderer.setDirections(response);
+    //   }
+    // })
+
 
     } else {
 
