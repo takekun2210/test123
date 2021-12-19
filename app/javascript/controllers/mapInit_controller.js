@@ -25,9 +25,9 @@ export default class extends Controller {
 
     // 如果回來的那一包資料有無景點的判斷
     // 哪一天的怎麼辦？要想一下
-    if (mockData.length !== 0) {
+    if (mockData.length > 1) {
 
-      var markers = []
+      const markers = []
       const map = new google.maps.Map(this.initialmapTarget, {
         center: mockData[1].position,
         zoom: 16,
@@ -132,6 +132,24 @@ export default class extends Controller {
     //   }
     // })
 
+
+    } else if (mockData.length === 1) {
+
+      const map = new google.maps.Map(this.initialmapTarget, {
+        center: mockData[0].position,
+        zoom: 16,
+        fullscreenControl: false,
+        streetViewControl: false,
+        mapTypeControl: false
+      });
+
+      const marker = new google.maps.Marker({
+        position: mockData[0].position,
+        map: map,
+        title:'這是總統府'
+      });
+
+      marker.setMap(map);
 
     } else {
 
