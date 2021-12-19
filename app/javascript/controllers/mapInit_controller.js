@@ -37,10 +37,10 @@ export default class extends Controller {
       });
   
       // 展開所有的景點marker
-      mockData.forEach(function(element,index){
-        markers[index] = new google.maps.Marker(element);
-        markers[index].setMap(map);
-      });  
+      // mockData.forEach(function(element,index){
+      //   markers[index] = new google.maps.Marker(element);
+      //   markers[index].setMap(map);
+      // });  
 
       // 加上點到點之間的連線
       // const spotsCoordinates = []
@@ -90,7 +90,7 @@ export default class extends Controller {
         // surporessed the A,B,C,D...marker
         suppressMarkers: true,
         // give customed route color
-        polylineOptions: { strokeColor: "#4226bf" }
+        polylineOptions: { strokeColor: "#4226bf", strokeWeight: 6, strokeOpacity: 0.8}
     });
 
       const firstSpotPosition = mockData[0].title
