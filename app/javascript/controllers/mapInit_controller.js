@@ -77,6 +77,7 @@ export default class extends Controller {
             new google.maps.Marker({
               position: position,
               map,
+              icon: 'https://i.ibb.co/fYqX8Fh/clipart51531-1.png',
               animation: google.maps.Animation.DROP,
             })
           );
@@ -114,7 +115,6 @@ export default class extends Controller {
             travelMode: google.maps.TravelMode.DRIVING,
           })
           .then((response) => {
-            console.log(response);
             directionsRenderer.setDirections(response);
           })
           .catch((e) => window.alert("Directions request failed"+ status));
