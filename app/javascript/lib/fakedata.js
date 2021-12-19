@@ -1,18 +1,18 @@
 export const mockData = [
   {
-    "position": {"lat": 25.04, "lng": 121.512},
+    "position": {"lat": 25.0399991, "lng": 121.509762},
     "title":"總統府"
   },
   {
-    "position": {"lat": 25.035, "lng": 121.519},
+    "position": {"lat": 25.0346703, "lng": 121.5196406},
     "title":"中正紀念堂"
   },
   {
-    "position": {"lat": 25.0412401, "lng": 121.5226487 },
-    "title":"國父紀念堂"
+    "position": {"lat": 25.0400306, "lng": 121.5580565 },
+    "title":"國父紀念館"
   },
   {
-    "position": {"lat": 25.0430751, "lng": 121.5412284},
+    "position": {"lat": 25.0413698, "lng": 121.5483041},
     "title":"忠孝敦化站"
   }
 

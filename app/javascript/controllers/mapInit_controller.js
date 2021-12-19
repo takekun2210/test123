@@ -43,23 +43,28 @@ export default class extends Controller {
       });  
 
       // 加上點到點之間的連線
-      const spotsCoordinates = []
-      mockData.forEach((element) => {
-        spotsCoordinates.push(element.position)
-      })
+      // const spotsCoordinates = []
+      // mockData.forEach((element) => {
+      //   spotsCoordinates.push(element.position)
+      // })
 
-      const spotsPath = new google.maps.Polyline({
-        path: spotsCoordinates,
-        geodesic: true,
-        strokeColor: "#FF0000",
-        strokeOpacity: 1.0,
-        strokeWeight: 3,
-      });
+      // const spotsPath = new google.maps.Polyline({
+      //   path: spotsCoordinates,
+      //   geodesic: true,
+      //   strokeColor: "#FF0000",
+      //   strokeOpacity: 1.0,
+      //   strokeWeight: 3,
+      // });
     
-      spotsPath.setMap(map);
+      // spotsPath.setMap(map);
 
       // 把marker做成動畫（IFFE function)
       (function dropMarker() {
+
+        const spotsCoordinates = []
+        mockData.forEach((element) => {
+          spotsCoordinates.push(element.position)
+        })
       
         for (let i = 0; i < spotsCoordinates.length; i++) {
           addMarkerWithTimeout(spotsCoordinates[i], i * 250);
@@ -81,7 +86,12 @@ export default class extends Controller {
       //計算點到點之間的路途（以開車為基準，之後可以換）
 
       const directionsService = new google.maps.DirectionsService();
-      const directionsRenderer = new google.maps.DirectionsRenderer();
+      const directionsRenderer = new google.maps.DirectionsRenderer({
+        // surporessed the A,B,C,D...marker
+        suppressMarkers: true,
+        // give customed route color
+        polylineOptions: { strokeColor: "#4226bf" }
+    });
 
       const firstSpotPosition = mockData[0].title
       const lastSpotPosition = mockData[mockData.length - 1].title
