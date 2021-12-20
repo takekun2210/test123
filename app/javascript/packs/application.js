@@ -16,6 +16,7 @@ ActiveStorage.start()
 // import "google_maps"
 
 import "controllers"
+import "images"
 
 window.mapInitialization = function () {
   const evt = new Event("mapsLoaded")

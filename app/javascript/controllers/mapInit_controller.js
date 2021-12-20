@@ -67,17 +67,17 @@ export default class extends Controller {
         })
       
         for (let i = 0; i < spotsCoordinates.length; i++) {
-          addMarkerWithTimeout(spotsCoordinates[i], i * 250);
+          addMarkerWithTimeout(spotsCoordinates[i], i, i * 250);
         }
       })();
       
-      function addMarkerWithTimeout(position, timeout) {
+      function addMarkerWithTimeout(position, index, timeout) {
         window.setTimeout(() => {
           markers.push(
             new google.maps.Marker({
               position: position,
               map,
-              icon: 'https://i.ibb.co/fYqX8Fh/clipart51531-1.png',
+              icon: {url:`https://gotripmapicons.s3.ap-southeast-1.amazonaws.com/mapicon/number_${index+1}.png`, scaledSize: new google.maps.Size(70, 70)},
               animation: google.maps.Animation.DROP,
             })
           );
