@@ -27,7 +27,6 @@ export default class extends Controller {
     // 哪一天的怎麼辦？要想一下
     if (mockData.length > 1) {
 
-      const markers = []
       const map = new google.maps.Map(this.initialmapTarget, {
         center: mockData[1].position,
         zoom: 16,
@@ -59,7 +58,10 @@ export default class extends Controller {
       // spotsPath.setMap(map);
 
       // 把marker做成動畫（IFFE function)
-      (function dropMarker() {
+
+      const markers = []
+
+      function dropMarker() {
 
         const spotsCoordinates = []
         mockData.forEach((element) => {
@@ -69,7 +71,7 @@ export default class extends Controller {
         for (let i = 0; i < spotsCoordinates.length; i++) {
           addMarkerWithTimeout(spotsCoordinates[i], i, i * 250);
         }
-      })();
+      };
       
       function addMarkerWithTimeout(position, index, timeout) {
         window.setTimeout(() => {
@@ -83,6 +85,10 @@ export default class extends Controller {
           );
         }, timeout);
       }
+
+      setTimeout(() => {
+        dropMarker();
+      }, 500);
 
       //計算點到點之間的路途（以開車為基準，之後可以換）
 
@@ -120,8 +126,10 @@ export default class extends Controller {
           .catch((e) => window.alert("Directions request failed"+ status));
       }
 
-      calculateAndDisplayRoute(directionsService,directionsRenderer);
-      directionsRenderer.setMap(map);
+      setTimeout(() => {
+        calculateAndDisplayRoute(directionsService,directionsRenderer);
+        directionsRenderer.setMap(map);
+      }, 300);
 
     //   drawRoute(firstSpotPosition, lastSpotPosition, middleSpotsPosition);
 
