@@ -156,6 +156,7 @@ export default class extends Controller {
       const marker = new google.maps.Marker({
         position: mockData[0].position,
         map: map,
+        icon: {url:`https://gotripmapicons.s3.ap-southeast-1.amazonaws.com/mapicon/number_1.png`, scaledSize: new google.maps.Size(70, 70)},
         title:'這是總統府'
       });
 
