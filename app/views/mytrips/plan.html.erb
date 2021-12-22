@@ -1,8 +1,13 @@
-<h1>For Map</h1>
+<%# <h1>For Map</h1> %>
 
 
 <div id="planView">
-  <div id="spotPlanningSection"></div>
+  <div id="spotPlanningSection">
+    <div id="dataTitle">  
+    </div>
+    <div id="dataBody">
+    </div>
+  </div>
   <div id="googleMapSection" 
        data-controller="mapInit"
        data-action="mapsLoaded@document->mapInit#renderMap"
