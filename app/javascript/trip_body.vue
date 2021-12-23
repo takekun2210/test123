@@ -1,17 +1,17 @@
 <template>
   <div style="max-height: 80vh;">
     <div class="dayBox">
-      <div class="dayBack">＜</div>
+      <div class="dayBack" v-on:click="slideLeft">＜</div>
       <div class="dayTitle">
         <div v-for="n in dayPages" class="dayBTN">
           第 {{n}} 天
         </div>
       </div>
-      <div class="dayNext">＞</div>
+      <div class="dayNext" v-on:click="slideRight">＞</div>
     </div>
     <div class="spotBox">
       <div class="spotStartTime">出發時間</div>
-      <draggable>
+      <draggable @add="newIndex">
       <div v-if="firstDay !== null || firstDay.length > 0 " v-for="s in firstDay.length" class="spotItem">
         <div>{{s}}</div>
         <div class="spotName">{{firstDay[s-1].spotName}}</div>
@@ -29,7 +29,9 @@ import draggable from 'vuedraggable';
 const tripData = tripsData[0];
 const dayPages = tripData.length;
 const firstDay = tripData.daySpots.date1;
-console.log(tripData.daySpots);
+const dayTitle = document.getElementsByClassName('dayTitle');
+console.log(firstDay);
+
 
 export default {
   components: { draggable },
@@ -38,6 +40,21 @@ export default {
       // 天數選擇區的總頁數
       dayPages: dayPages,
       firstDay: firstDay,
+    }
+  },
+  methods: {
+    newIndex() {
+      let newlist = [];
+      newlist = firstDay;
+      console.log(newlist);
+    },
+    slideRight() {
+      console.log(dayTitle);
+      dayTitle.scrollLeft += 20;
+    },
+    slideLeft() {
+      console.log(123);
+      dayTitle.scrollLeft -= 20;
     }
   }
 }
@@ -55,6 +72,12 @@ export default {
     height: 0px;
     width: 0px;
   }
+    .dayTitle {
+    display: flex;
+    width: 90%;
+    max-width: 90%;
+    overflow: scroll;
+  }
   .spotBox::-webkit-scrollbar {
     width: 0px;
     height: 0px;
@@ -63,12 +86,6 @@ export default {
     height: 75vh;
     max-height: 75vh;
     overflow: auto;
-  }
-  .dayTitle {
-    display: flex;
-    width: 90%;
-    max-width: 90%;
-    overflow: scroll;
   }
   .dayTitle a {
     text-decoration: none;

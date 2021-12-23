@@ -9,4 +9,5 @@ document.addEventListener('DOMContentLoaded', () => {
   }).$mount()
   const tripBody = document.getElementById('dataBody')
   tripBody.appendChild(app.$el)
+
 })
