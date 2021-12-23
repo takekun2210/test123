@@ -2,7 +2,7 @@
   <div style="max-height: 80vh;">
     <div class="dayBox">
       <div class="dayBack" v-on:click="slideLeft">＜</div>
-      <div class="dayTitle">
+      <div ref="dayTitle" class="dayTitle">
         <div v-for="n in dayPages" class="dayBTN">
           第 {{n}} 天
         </div>
@@ -29,8 +29,6 @@ import draggable from 'vuedraggable';
 const tripData = tripsData[0];
 const dayPages = tripData.length;
 const firstDay = tripData.daySpots.date1;
-const dayTitle = document.getElementsByClassName('dayTitle');
-console.log(firstDay);
 
 
 export default {
@@ -46,15 +44,15 @@ export default {
     newIndex() {
       let newlist = [];
       newlist = firstDay;
-      console.log(newlist);
+    //   console.log(newlist);
     },
     slideRight() {
-      console.log(dayTitle);
-      dayTitle.scrollLeft += 20;
+      const dayTitle = this.$refs.dayTitle
+      dayTitle.scrollLeft += 100;
     },
     slideLeft() {
-      console.log(123);
-      dayTitle.scrollLeft -= 20;
+      const dayTitle = this.$refs.dayTitle
+      dayTitle.scrollLeft -= 100;
     }
   }
 }
