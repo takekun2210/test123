@@ -9,8 +9,6 @@
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
     <script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_API_KEY']%>&callback=mapInitialization&v=weekly" async defer ></script>
-    <%= javascript_pack_tag 'trip_title_vue' %>
-    <%= javascript_pack_tag 'trip_body_vue' %>
   </head>
 
   <body>

@@ -1,32 +1,48 @@
 <template>
-  <div style="max-height: 80vh;">
-    <div class="dayBox">
-      <div class="dayBack" v-on:click="slideLeft">＜</div>
-      <div ref="dayTitle" class="dayTitle">
-        <div v-for="n in dayPages" class="dayBTN">
-          第 {{n}} 天
+  <div>
+
+    <div id="dataTitle">
+      <div class="tripName">{{tripName}}</div>
+      <div class="starEnd">{{startDay}} - {{endDay}}</div>
+      <div class="dayLength">{{dayLength}} 天 {{dayLength - 1}} 夜</div>
+    </div>
+    
+    <div id="dataBody" >
+      <div class="dayBox">
+        <div class="dayBack" v-on:click="slideLeft">＜</div>
+        <div ref="dayTitle" class="dayTitle">
+          <div v-for="n in dayPages" class="dayBTN">
+            第 {{n}} 天
+          </div>
         </div>
+        <div class="dayNext" v-on:click="slideRight">＞</div>
       </div>
-      <div class="dayNext" v-on:click="slideRight">＞</div>
-    </div>
-    <div class="spotBox">
-      <div class="spotStartTime">出發時間</div>
-      <draggable @add="newIndex">
-      <div v-if="firstDay !== null || firstDay.length > 0 " v-for="s in firstDay.length" class="spotItem">
-        <div>{{s}}</div>
-        <div class="spotName">{{firstDay[s-1].spotName}}</div>
-        <div class="address">{{firstDay[s-1].address}}</div>
+      <div class="spotBox">
+        <div class="spotStartTime">出發時間</div>
+        <draggable @add="newIndex">
+        <div v-if="firstDay !== null || firstDay.length > 0 " v-for="s in firstDay.length" class="spotItem">
+          <div>{{s}}</div>
+          <div class="spotName">{{firstDay[s-1].spotName}}</div>
+          <div class="address">{{firstDay[s-1].address}}</div>
+        </div>
+        </draggable>
       </div>
-      </draggable>
+      <div class="spotBTN">新增行程</div>
     </div>
-    <div class="spotBTN">新增行程</div>
+
   </div>
 </template>
 
 <script>
+import dayjs from "dayjs";
 import {tripsData} from './api/spots.js';
 import draggable from 'vuedraggable';
 const tripData = tripsData[0];
+
+let startDay = new Date(tripData.startDate);
+startDay = dayjs(startDay).format('YYYY/MM/DD');
+let endDay = dayjs(startDay).add(tripData.length - 1, "day").format('YYYY/MM/DD');
+
 const dayPages = tripData.length;
 const firstDay = tripData.daySpots.date1;
 
@@ -35,17 +51,19 @@ export default {
   components: { draggable },
   data: function () {
     return {
+      // 行程標題部分
+      tripName: tripData.name,
+      starEnd: tripData.startDate,
+      dayLength: tripData.length,
+      startDay: startDay,
+      endDay: endDay,
+
       // 天數選擇區的總頁數
       dayPages: dayPages,
       firstDay: firstDay,
     }
   },
   methods: {
-    newIndex() {
-      let newlist = [];
-      newlist = firstDay;
-    //   console.log(newlist);
-    },
     slideRight() {
       const dayTitle = this.$refs.dayTitle
       dayTitle.scrollLeft += 100;
@@ -59,12 +77,17 @@ export default {
 </script>
 
 <style scoped>
+
+  #dataTitle {
+    background-color: #fff
+  }
+  #dataBody {
+    background-color: #fff
+  }
   .dayBox {
     display: flex;
     justify-content: space-between;
     height: 5vh;
-    width: calc(100% - 1px);
-    border: 1px solid #ccc;
   }
   .dayTitle::-webkit-scrollbar {
     height: 0px;
@@ -81,8 +104,8 @@ export default {
     height: 0px;
   }
   .spotBox {
-    height: 75vh;
-    max-height: 75vh;
+    height: 79vh;
+    max-height: 79vh;
     overflow: auto;
   }
   .dayTitle a {
@@ -99,23 +122,30 @@ export default {
   }
   .spotItem {
     padding: 20px;
-    border: 1px solid #ccc;
   }
   .spotStartTime {
     padding: 10px 20px;
   }
   .dayBack, .dayNext{
-    width: calc(5% - 5px);
+    width: 5%;
     padding: 5px;
     display: flex;
     justify-content: center;
     align-items: center;
-    border: 1px solid #ccc;
   }
   .dayBTN {
     flex-shrink: 0;
     padding: 10px;
     margin-right: 5px;
-    border: 1px solid #ccc;
+  }
+  .tripName {
+    font-size: 20px;
+    padding: 10px 20px;
+  }
+  .starEnd {
+    padding: 0px 20px;
+  }
+  .dayLength {
+    padding: 5px 20px;
   }
 </style>
