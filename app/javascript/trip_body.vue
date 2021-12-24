@@ -4,7 +4,8 @@
     <div id="dataTitle">
       <div class="tripName">{{tripName}}</div>
       <div class="starEnd">{{startDay}} - {{endDay}}</div>
-      <div class="dayLength">{{dayLength}} 天 {{dayLength - 1}} 夜</div>
+      <div v-if="dayLength > 1" class="dayLength">{{dayLength}} 天 {{dayLength - 1}} 夜</div>
+      <div v-else-if="dayLength == 1" class="dayLength">{{dayLength}} 天</div>
     </div>
     
     <div id="dataBody" >
@@ -19,7 +20,7 @@
       </div>
       <div class="spotBox">
         <div class="spotStartTime">出發時間</div>
-        <draggable @add="newIndex">
+        <draggable v-model="firstDay" @change="dragSpot">
         <div v-if="firstDay !== null || firstDay.length > 0 " v-for="s in firstDay.length" class="spotItem">
           <div>{{s}}</div>
           <div class="spotName">{{firstDay[s-1].spotName}}</div>
@@ -64,6 +65,9 @@ export default {
     }
   },
   methods: {
+    dragSpot() {
+      console.log(firstDay);
+    },
     slideRight() {
       const dayTitle = this.$refs.dayTitle
       dayTitle.scrollLeft += 100;
